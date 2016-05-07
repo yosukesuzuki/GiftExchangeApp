@@ -11,6 +11,7 @@ const {
 } = React;
 
 import styles from './styles'
+import Emoji from 'react-native-emoji'
 import SelectNumber from './selectnumber'
 
 export default class GiftExchangeApp extends Component {
@@ -19,7 +20,7 @@ export default class GiftExchangeApp extends Component {
             <View style={styles.navigation}>
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>
-                        Gift Exchange App
+                        <Emoji name="gift" />Gift Exchange App
                     </Text>
                 </View>
                 <Navigator
