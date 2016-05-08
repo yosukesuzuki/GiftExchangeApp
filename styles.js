@@ -37,11 +37,13 @@ export default styles = StyleSheet.create({
         color: '#000000',
         height: 40,
         fontSize: 20,
-        paddingBottom: 5,
+        paddingTop: 10,
+        paddingBottom: 0,
     },
     pickerContainer: {
         flex: 1,
         alignSelf: 'stretch',
+        width: 400,
     },
     pickerItem: {
         padding: 40,
