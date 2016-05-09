@@ -64,5 +64,27 @@ export default styles = StyleSheet.create({
         marginBottom: 10,
         alignSelf: 'stretch',
         justifyContent: 'center'
+    },
+    listItem: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        borderBottomColor: '#AAAAAA',
+        borderBottomWidth: 1,
+        padding:5,
+    },
+    listNum: {
+        flex:1,
+        fontSize:30,
+        width: 80,
+        fontWeight: 'bold',
+    },
+    inputContainer: {
+        flex: 1,
+    },
+    inputText: {
+        height: 40,
+        width: 250,
+        fontSize: 30,
     }
 });

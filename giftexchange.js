@@ -13,6 +13,7 @@ const {
 import styles from './styles'
 import Emoji from 'react-native-emoji'
 import SelectNumber from './selectnumber'
+import NameForm from './form'
 
 export default class GiftExchangeApp extends Component {
     render() {
@@ -36,6 +37,8 @@ export default class GiftExchangeApp extends Component {
         switch (route.id) {
             case 'selectnumber':
                 return (<SelectNumber navigator={navigator} title="selectnumber"/>);
+            case 'form':
+                return (<NameForm navigator={navigator} title="form"/>);
         }
     }
 }

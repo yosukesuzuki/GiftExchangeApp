@@ -12,6 +12,7 @@ const {
 } = React;
 
 import styles from './styles';
+import NameForm from './form';
 
 const STORAGE_KEY_NUMBER_OF_PEOPLE = 'NUMBER_OF_PEOPLE';
 
@@ -36,7 +37,15 @@ export default class SelectNumber extends Component {
         let number_of_people = this._numberOfPeople();
         console.log(number_of_people + ' is selected');
         AsyncStorage.setItem(STORAGE_KEY_NUMBER_OF_PEOPLE, String(number_of_people))
-            .then(() => console.log('saved to disk:'+ number_of_people))
+            .then(() => {
+                console.log('saved to disk:'+ number_of_people);
+                this.props.navigator.push({
+                    id: 'form',
+                    title: 'form',
+                    component: NameForm
+                })
+                
+            })
             .catch((error) => console.log('Async Storage error:'+ error.message))
             .done();
     }
