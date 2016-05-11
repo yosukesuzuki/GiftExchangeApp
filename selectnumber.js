@@ -40,9 +40,9 @@ export default class SelectNumber extends Component {
             .then(() => {
                 console.log('saved to disk:'+ number_of_people);
                 this.props.navigator.push({
-                    id: 'form',
-                    title: 'form',
-                    component: NameForm
+                    title: 'Input Name or assign number',
+                    component: NameForm,
+                    passProps: {number: number_of_people},
                 })
                 
             })

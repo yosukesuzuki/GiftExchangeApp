@@ -68,6 +68,7 @@ export default styles = StyleSheet.create({
     listItem: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'flex-start',
         backgroundColor: '#FFFFFF',
         borderBottomColor: '#AAAAAA',
         borderBottomWidth: 1,
@@ -75,16 +76,14 @@ export default styles = StyleSheet.create({
     },
     listNum: {
         flex:1,
-        fontSize:30,
-        width: 80,
-        fontWeight: 'bold',
+        fontSize: 30,
     },
     inputContainer: {
-        flex: 1,
+        flex: 5,
     },
     inputText: {
+        flex: 1,
         height: 40,
-        width: 250,
         fontSize: 30,
     }
 });

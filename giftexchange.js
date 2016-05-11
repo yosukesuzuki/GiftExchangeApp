@@ -7,7 +7,7 @@ const {
     Component,
     View,
     Text,
-    Navigator,
+    NavigatorIOS,
 } = React;
 
 import styles from './styles'
@@ -24,9 +24,13 @@ export default class GiftExchangeApp extends Component {
                         <Emoji name="gift" />Gift Exchange App
                     </Text>
                 </View>
-                <Navigator
+                <NavigatorIOS
                     style={styles.navigation}
-                    initialRoute={{id: 'selectnumber'}}
+                    initialRoute={{
+                    title: 'Select Number',
+                    component: SelectNumber,
+                    passProps: {number: 6},
+                    }}
                     renderScene={this.navigatorRenderScene}/>
             </View>
         );

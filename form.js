@@ -4,13 +4,13 @@
 import React from 'react-native'
 const {
     Component,
-    Image,
     Text,
     TextInput,
     View,
     ListView,
     TouchableHighlight,
     AsyncStorage,
+    RecyclerViewBackedScrollView,
 } = React;
 
 import styles from './styles';
@@ -55,9 +55,12 @@ const ANIMALS = [
 export default class NameForm extends Component {
     constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        const number = this.props.number;
+        const height = 100 * (number + 1);
         this.state = {
-            number: 0,
+            number: number,
+            height: height,
             dataSource: ds.cloneWithRows([]),
         };
 
@@ -85,51 +88,32 @@ export default class NameForm extends Component {
     }
 
     _refreshData() {
-        AsyncStorage.getItem(STORAGE_KEY_NUMBER_OF_PEOPLE, (err, result) => {
-            console.log(result);
-            const number = parseInt(result, 10);
-            this.setState({number: number});
-            const animals = this.shuffle();
-            let dsArray = [];
-            for (let i = 0; i < number; i++) {
-                dsArray.push({num: i + 1, name: animals[i]})
-            }
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(dsArray)
-            });
+        const number = this.state.number;
+        const animals = this.shuffle();
+        let dsArray = [];
+        for (let i = 0; i < number; i++) {
+            dsArray.push({num: i + 1, name: animals[i]})
+        }
+
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(dsArray)
         });
     }
 
-    _renderHeader() {
-        <View>
-            <Text style={styles.mainText}>
-                input name or assign number to people
-            </Text>
-        </View>
-    }
-
-    _renderFooter() {
-        <View>
-            <Text style={styles.mainText}>
-                if complete, then push Next
-            </Text>
-        </View>
-    }
-    
-    _handleTextChange(event) {
-        console.log('changed');
-    }
-
     _renderRow(rowData) {
+        const refName = 'name' + rowData.num
         return (
             <View style={styles.listItem}>
                 <Text style={styles.listNum}>
-                    {rowData.num}&nbsp;
+                    {rowData.num}
+                </Text>
+                <Text style={styles.listNum}>
                     <Emoji name={rowData.name}/>
                 </Text>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText}
                                defaultValue={rowData.name}
+                               ref={refName}
                     />
                 </View>
             </View>
@@ -137,16 +121,18 @@ export default class NameForm extends Component {
     }
 
     _onPress() {
+        console.log('hoge');
     }
 
     render() {
         return (
-            <View style={styles.container}>
+            <View>
                 <Text style={styles.mainText}>
                     input name or assign number to people
                 </Text>
                 <View>
                     <ListView
+                        initialListSize={this.state.number}
                         enableEmptySections={true}
                         dataSource={this.state.dataSource}
                         renderRow={this._renderRow}
