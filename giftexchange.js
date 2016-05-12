@@ -35,14 +35,4 @@ export default class GiftExchangeApp extends Component {
             </View>
         );
     }
-
-    navigatorRenderScene(route, navigator) {
-        _navigator = navigator;
-        switch (route.id) {
-            case 'selectnumber':
-                return (<SelectNumber navigator={navigator} title="selectnumber"/>);
-            case 'form':
-                return (<NameForm navigator={navigator} title="form"/>);
-        }
-    }
 }

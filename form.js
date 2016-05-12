@@ -126,18 +126,14 @@ export default class NameForm extends Component {
 
     render() {
         return (
-            <View>
-                <Text style={styles.mainText}>
-                    input name or assign number to people
-                </Text>
-                <View>
-                    <ListView
-                        initialListSize={this.state.number}
-                        enableEmptySections={true}
-                        dataSource={this.state.dataSource}
-                        renderRow={this._renderRow}
-                    />
-                </View>
+            <View style={styles.listContainer}>
+                <ListView
+                    style={styles.listStyle}
+                    initialListSize={this.state.number}
+                    enableEmptySections={true}
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                />
                 <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#99d9f4'>
                     <Text style={styles.buttonText}>Next</Text>
                 </TouchableHighlight>

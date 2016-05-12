@@ -61,9 +61,18 @@ export default styles = StyleSheet.create({
         borderColor: '#1F8A70',
         borderWidth: 1,
         borderRadius: 8,
-        marginBottom: 10,
+        marginBottom: 20,
         alignSelf: 'stretch',
         justifyContent: 'center'
+    },
+    listContainer: {
+        flex: 1,
+        padding: 5,
+        marginBottom: 5,
+    },
+    listStyle: {
+        flex: 1,
+        paddingTop: 20,
     },
     listItem: {
         flex: 1,
