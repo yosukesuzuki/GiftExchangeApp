@@ -9,14 +9,12 @@ const {
     View,
     ListView,
     TouchableHighlight,
-    AsyncStorage,
-    RecyclerViewBackedScrollView,
 } = React;
 
-import styles from './styles';
+import styles from './styles'
 import Emoji from 'react-native-emoji'
-
-const STORAGE_KEY_NUMBER_OF_PEOPLE = 'NUMBER_OF_PEOPLE';
+import Result from './result'
+import shuffle from './utils'
 
 const ANIMALS = [
     'mouse',
@@ -58,10 +56,12 @@ export default class NameForm extends Component {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         const number = this.props.number;
         const height = 100 * (number + 1);
+        this.renderRow = this.renderRow.bind(this);
         this.state = {
             number: number,
             height: height,
             dataSource: ds.cloneWithRows([]),
+            results: []
         };
 
     }
@@ -70,50 +70,56 @@ export default class NameForm extends Component {
         this._refreshData();
     }
 
-    shuffle() {
+    _shuffle() {
         const array = ANIMALS;
-        let currentIndex = array.length, temporaryValue, randomIndex;
-
-        while (0 !== currentIndex) {
-
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
+        return shuffle(array);
     }
 
     _refreshData() {
         const number = this.state.number;
-        const animals = this.shuffle();
+        const animals = this._shuffle();
         let dsArray = [];
         for (let i = 0; i < number; i++) {
-            dsArray.push({num: i + 1, name: animals[i]})
+            dsArray.push({num: i + 1, name: animals[i], animal: animals[i]})
         }
 
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(dsArray)
+            dataSource: this.state.dataSource.cloneWithRows(dsArray),
+            results: dsArray
         });
     }
 
-    _renderRow(rowData) {
-        const refName = 'name' + rowData.num
+    _textChangeHandler(text, num) {
+        console.log(text);
+        console.log(num);
+        const number = this.state.number;
+        let dsArray = this.state.results;
+        for (let i = 0; i < number; i++) {
+            if(i+1 == num){
+                dsArray[i].name = text.text;
+            }
+        }
+        this.setState({
+            results: dsArray,
+        });
+    }
+
+    renderRow(rowData) {
+        const refName = 'name' + rowData.num;
         return (
             <View style={styles.listItem}>
                 <Text style={styles.listNum}>
                     {rowData.num}
                 </Text>
                 <Text style={styles.listNum}>
-                    <Emoji name={rowData.name}/>
+                    <Emoji name={rowData.animal}/>
                 </Text>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText}
                                defaultValue={rowData.name}
                                ref={refName}
+                               clearButtonMode={'while-editing'}
+                               onChangeText={(text) => this._textChangeHandler({text}, rowData.num)}
                     />
                 </View>
             </View>
@@ -121,8 +127,13 @@ export default class NameForm extends Component {
     }
 
     _onPress() {
-        console.log('hoge');
+        this.props.navigator.push({
+            title: 'Result',
+            component: Result,
+            passProps: {results: this.state.results},
+        })
     }
+
 
     render() {
         return (
@@ -132,7 +143,7 @@ export default class NameForm extends Component {
                     initialListSize={this.state.number}
                     enableEmptySections={true}
                     dataSource={this.state.dataSource}
-                    renderRow={this._renderRow}
+                    renderRow={this.renderRow}
                 />
                 <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#99d9f4'>
                     <Text style={styles.buttonText}>Next</Text>

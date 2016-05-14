@@ -83,8 +83,28 @@ export default styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding:5,
     },
+    listFrom: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        backgroundColor: '#FFFFFF',
+        padding:5,
+    },
+    listTo: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        backgroundColor: '#FFFFFF',
+        borderBottomColor: '#AAAAAA',
+        borderBottomWidth: 1,
+        padding:5,
+    },
     listNum: {
         flex:1,
+        fontSize: 30,
+    },
+    listText: {
+        flex: 5,
         fontSize: 30,
     },
     inputContainer: {
