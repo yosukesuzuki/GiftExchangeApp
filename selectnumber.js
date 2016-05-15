@@ -22,6 +22,7 @@ export default class SelectNumber extends Component {
         this.state = {
             number: 6,
         }
+        this._goBackHome = this._goBackHome.bind(this);
     }
 
     _handleValueChange(num) {
@@ -31,6 +32,10 @@ export default class SelectNumber extends Component {
 
     _numberOfPeople() {
         return this.state.number
+    }
+
+    _goBackHome() {
+        this.props.navigator.pop();
     }
 
     _onPress() {
@@ -43,6 +48,8 @@ export default class SelectNumber extends Component {
                     title: 'Input Name or assign number',
                     component: NameForm,
                     passProps: {number: number_of_people},
+                    rightButtonTitle: 'Home',
+                    onRightButtonPress: this._goBackHome
                 })
                 
             })

@@ -81,14 +81,15 @@ export default styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderBottomColor: '#AAAAAA',
         borderBottomWidth: 1,
-        padding:5,
+        padding: 5,
     },
     listFrom: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-start',
         backgroundColor: '#FFFFFF',
-        padding:5,
+        paddingTop: 5,
+        paddingRight: 20,
     },
     listTo: {
         flex: 1,
@@ -97,11 +98,13 @@ export default styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderBottomColor: '#AAAAAA',
         borderBottomWidth: 1,
-        padding:5,
+        paddingBottom: 5,
+        paddingLeft: 20,
     },
     listNum: {
-        flex:1,
+        flex: 1,
         fontSize: 30,
+        alignItems: 'center'
     },
     listText: {
         flex: 5,

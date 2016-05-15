@@ -5,12 +5,8 @@ import React from 'react-native'
 const {
     Component,
     Text,
-    TextInput,
     View,
     ListView,
-    TouchableHighlight,
-    AsyncStorage,
-    RecyclerViewBackedScrollView,
 } = React;
 
 import styles from './styles';
@@ -44,6 +40,7 @@ export default class Result extends Component {
             }
             dsArray.push({from: array[i], to: array[to_index]})
         }
+        dsArray = shuffle(dsArray);
 
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(dsArray),

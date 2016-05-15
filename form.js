@@ -63,7 +63,7 @@ export default class NameForm extends Component {
             dataSource: ds.cloneWithRows([]),
             results: []
         };
-
+        this._goBackHome = this._goBackHome.bind(this);
     }
 
     componentDidMount() {
@@ -124,6 +124,10 @@ export default class NameForm extends Component {
                 </View>
             </View>
         )
+    }    
+    
+    _goBackHome() {
+        this.props.navigator.popN(2);
     }
 
     _onPress() {
@@ -131,6 +135,8 @@ export default class NameForm extends Component {
             title: 'Result',
             component: Result,
             passProps: {results: this.state.results},
+            rightButtonTitle: 'Home',
+            onRightButtonPress: this._goBackHome
         })
     }
 
