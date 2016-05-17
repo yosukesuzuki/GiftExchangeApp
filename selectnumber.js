@@ -77,7 +77,7 @@ export default class SelectNumber extends Component {
                         })}
                     </Picker>
                 </View>
-                <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#99d9f4'>
+                <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#2CC7A2'>
                     <Text style={styles.buttonText}>Next</Text>
                 </TouchableHighlight>
             </View>

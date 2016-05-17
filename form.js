@@ -9,6 +9,8 @@ const {
     View,
     ListView,
     TouchableHighlight,
+    Dimensions,
+    DeviceEventEmitter
 } = React;
 
 import styles from './styles'
@@ -61,13 +63,30 @@ export default class NameForm extends Component {
             number: number,
             height: height,
             dataSource: ds.cloneWithRows([]),
-            results: []
+            results: [],
+            visibleHeight: Dimensions.get('window').height,
+            listMarginBottom: 50,
         };
         this._goBackHome = this._goBackHome.bind(this);
+        this.keyboardWillShow = this.keyboardWillShow.bind(this);
+        this.keyboardWillHide = this.keyboardWillHide.bind(this);
     }
 
     componentDidMount() {
         this._refreshData();
+        DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow);
+        DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide);
+    }
+
+    keyboardWillShow(e) {
+        let newSize = Dimensions.get('window').height - e.endCoordinates.height
+        this.setState({visibleHeight: newSize})
+        this.setState({listMarginBottom: e.endCoordinates.height})
+    }
+
+    keyboardWillHide(e) {
+        this.setState({visibleHeight: Dimensions.get('window').height})
+        this.setState({listMarginBottom: 50})
     }
 
     _shuffle() {
@@ -95,7 +114,7 @@ export default class NameForm extends Component {
         const number = this.state.number;
         let dsArray = this.state.results;
         for (let i = 0; i < number; i++) {
-            if(i+1 == num){
+            if (i + 1 == num) {
                 dsArray[i].name = text.text;
             }
         }
@@ -124,8 +143,8 @@ export default class NameForm extends Component {
                 </View>
             </View>
         )
-    }    
-    
+    }
+
     _goBackHome() {
         this.props.navigator.popN(2);
     }
@@ -143,7 +162,7 @@ export default class NameForm extends Component {
 
     render() {
         return (
-            <View style={styles.listContainer}>
+            <View style={{flex:1, padding: 5, marginBottom: this.state.listMarginBottom}}>
                 <ListView
                     style={styles.listStyle}
                     initialListSize={this.state.number}
@@ -151,7 +170,7 @@ export default class NameForm extends Component {
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                 />
-                <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#99d9f4'>
+                <TouchableHighlight style={styles.button} onPress={() => this._onPress()} underlayColor='#2CC7A2'>
                     <Text style={styles.buttonText}>Next</Text>
                 </TouchableHighlight>
             </View>

@@ -68,7 +68,7 @@ export default styles = StyleSheet.create({
     listContainer: {
         flex: 1,
         padding: 5,
-        marginBottom: 5,
+        paddingBottom: 10,
     },
     listStyle: {
         flex: 1,
